@@ -1,0 +1,47 @@
+! pip install numpy
+
+! pip install pandas
+
+! pip install matplotlib
+
+! pip install opencv-python
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('botak.csv')
+df
+
+df.describe()
+
+df['jenis_kelamin'].describe()
+
+df['umur'].describe()
+
+df.isna().sum()
+
+from statistics import mode
+
+jenis_kelamin_mode = mode(df['jenis_kelamin'])
+pekerjaan_mode = mode(df['pekerjaan'])
+is_keturunan_mode = mode(df['is_keturunan'])
+sampo_mode = mode(df['sampo'])
+berat_mean = df['berat'].mean()
+gaji_mean = df['gaji'].mean()
+
+kolom_missing = ['jenis_kelamin', 'pekerjaan', 
+                 'is_keturunan', 'berat', 'sampo', 'gaji']
+inputan = [jenis_kelamin_mode, pekerjaan_mode, 
+           is_keturunan_mode, berat_mean, sampo_mode, gaji_mean]
+
+for kolom, inputan in zip(kolom_missing, inputan):
+    df[kolom].fillna(inputan, inplace=True)
+
+df.isna().sum()
+
+df.duplicated().sum()
+
+df_hapus_duplikat = df.drop_duplicates()
+df_hapus_duplikat.info()
+
